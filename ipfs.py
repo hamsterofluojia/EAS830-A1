@@ -20,6 +20,15 @@ def pin_to_ipfs(data):
 	#define payload
 	payload = {
 		'file': data_json
+		'pinataOptions': {
+            		'cidVersion': 0
+        	},
+        	'pinataMetadata': {
+           		'name': 'my_dictionary',
+           	 	'keyvalues': {
+                	'exampleKey': 'exampleValue'
+            		}
+        	}
 	}
 
 	#upload data
