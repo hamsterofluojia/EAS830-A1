@@ -19,7 +19,7 @@ def pin_to_ipfs(data):
 
 	#define payload
 	payload = {
-		'file': data_json,
+		'pinataContent': data_json,
 		'pinataOptions': {
             		'cidVersion': 0
         	},
