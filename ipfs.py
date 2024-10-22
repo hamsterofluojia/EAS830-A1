@@ -47,9 +47,12 @@ def get_from_ipfs(cid,content_type="json"):
 		response = requests.get(url)
 
 		if response.status_code == 200:
-			data = response.json()
-			assert isinstance(data,dict), f"get_from_ipfs should return a dict"
-			return data
+			if content_type == "json":
+				data = response.json()
+				assert isinstance(data,dict), f"get_from_ipfs should return a dict"
+				return data
+			else:
+				return response.text
 
 		else:
 			print(f'failed to fetch data from ipfs')
