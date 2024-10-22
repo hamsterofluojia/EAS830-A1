@@ -41,7 +41,7 @@ def get_from_ipfs(cid,content_type="json"):
 	#YOUR CODE HERE	
 
 	#construct url
-	url = f'https://ipfs.io/ipfs/{cid}'
+	url = f'https://gateway.pinata.cloud/ipfs/{cid}'
 
 	try:
 		response = requests.get(url)
@@ -50,7 +50,6 @@ def get_from_ipfs(cid,content_type="json"):
 			data = response.json()
 			assert isinstance(data,dict), f"get_from_ipfs should return a dict"
 			return data
-
 		else:
 			print(f'failed to fetch data from ipfs')
 			return None
