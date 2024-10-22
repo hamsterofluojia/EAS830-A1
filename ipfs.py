@@ -25,6 +25,7 @@ def pin_to_ipfs(data):
 		return cid
 
 	else:
+		print data_json
 		print('Failed to upload to IPFS:', response.text)
 		return None
 
