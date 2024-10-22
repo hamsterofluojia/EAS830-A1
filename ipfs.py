@@ -19,7 +19,7 @@ def pin_to_ipfs(data):
 
 	#define payload
 	payload = {
-		'file': json_data
+		'file': data_json
 	}
 
 	#upload data
