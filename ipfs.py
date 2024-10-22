@@ -48,7 +48,7 @@ def get_from_ipfs(cid,content_type="json"):
 			print(f'failed to fetch data from ipfs')
 			return None
 
-		# If attempt failed, throw an exception
-  	except requests.exceptions.RequestException as e:
+	# If attempt failed, throw an exception
+	except requests.exceptions.RequestException as e:
 		print(f'An error occurred: {e}')
     		return None
