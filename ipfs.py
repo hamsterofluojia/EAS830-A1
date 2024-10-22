@@ -17,8 +17,13 @@ def pin_to_ipfs(data):
 
 	url = 'https://api.pinata.cloud/pinning/pinJSONToIPFS'
 
+	#define payload
+	payload = {
+		'pinataContent': data_json,
+	}
+
 	#upload data
-	response = requests.post(url, headers=headers, json=data_json)
+	response = requests.post(url, headers=headers, json=payload)
 
 	if response.status_code == 200:
 		cid = response.json()['IpfsHash']
