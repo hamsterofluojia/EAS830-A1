@@ -32,31 +32,30 @@ def get_ape_info(apeID):
 	bayc_contract = web3.eth.contract(address=contract_address,abi=abi)
 
 	try:
-
-    # get owner
-    data['owner'] = bayc_contract.functions.ownerOf(apeID).call()
+		# get owner
+    		data['owner'] = bayc_contract.functions.ownerOf(apeID).call()
         
-    # get tokenURI
-    token_uri = bayc_contract.functions.tokenURI(apeID).call()
-
-    # retreive metadata from IPFS
-    metadata = requests.get(token_uri)
+	    	# get tokenURI
+	    	token_uri = bayc_contract.functions.tokenURI(apeID).call()
+	
+	   	# retreive metadata from IPFS
+	    	metadata = requests.get(token_uri)
 		# parse metadata 
-    metadata_json = metadata_response.json()
-        
-    # extract image uri 
-    image_uri = metadata_json.get("image")
+	    	metadata_json = metadata_response.json()
+	        
+	    	# extract image uri 
+	    	image_uri = metadata_json.get("image")
 
 		# extract eyes attribute 
-    eyes = None
-    for attribute in metadata_json.get("attributes", []):
-        if attribute.get("trait_type") == "Eyes":
-            eyes = attribute.get("value")
-            break
+   		eyes = None
+    		for attribute in metadata_json.get("attributes", []):
+        		if attribute.get("trait_type") == "Eyes":
+            			eyes = attribute.get("value")
+            			break
 
-  except Exception as e:
-    print(f"Error retrieving data for Ape ID {apeID}: {e}")
-    return None
+  	except Exception as e:
+   		print(f"Error retrieving data for Ape ID {apeID}: {e}")
+    		return None
 
 	assert isinstance(data,dict), f'get_ape_info{apeID} should return a dict' 
 	assert all( [a in data.keys() for a in ['owner','image','eyes']] ), f"return value should include the keys 'owner','image' and 'eyes'"
