@@ -37,9 +37,7 @@ def get_ape_info(apeID):
 		
 		#get tokenURI
 		token_uri = bayc_contract.functions.tokenURI(apeID).call()
-		print(f"Token URI for Ape ID {apeID}: {token_uri}")
 		token_uri = token_uri.replace('ipfs://', 'https://ipfs.io/ipfs/')
-		print(f"Updated Token URI for Ape ID {apeID}: {token_uri}")
 		
 		#retrieve metadata from IPFS
 		metadata = requests.get(token_uri)
@@ -49,6 +47,7 @@ def get_ape_info(apeID):
 		
 		#extract image uri
 		image_uri = metadata_json.get("image")
+		data['image'] = image_uri
 		
 		#extract eyes attribute
 		eyes = None
@@ -56,6 +55,7 @@ def get_ape_info(apeID):
 			if attribute.get("trait_type") == "Eyes":
 				eyes = attribute.get("value")
 				break
+		data['eyes'] = eyes
 
 	except Exception as e:
 		print(f"Error retrieving Ape ID {apeID}: {e}")
