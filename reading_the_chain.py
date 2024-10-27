@@ -84,7 +84,7 @@ def is_ordered_block(w3, block_num):
 	ordered = all(priority_fees[i] >= priority_fees[i + 1] for i in range(len(priority_fees) - 1))
 
 	# if it is an empty block or block with just 1 transaction, ordered is True
-	if len(priority_fees) == 0 || len(priority_fees) == 1:
+	if len(priority_fees) == 0 or len(priority_fees) == 1:
 		ordered = True
 
 	return ordered
