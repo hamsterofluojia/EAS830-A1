@@ -54,7 +54,6 @@ def is_ordered_block(w3, block_num):
 	Conveniently, most type 2 transactions set the gasPrice field to be min( tx.maxPriorityFeePerGas + block.baseFeePerGas, tx.maxFeePerGas )
 	"""
 	block = w3.eth.get_block(block_num, full_transactions=True)
-	print (block)
 	
 	ordered = False
 
@@ -63,35 +62,22 @@ def is_ordered_block(w3, block_num):
 	# store the priority fees of all transactions in order with a list
 	priorty_fees = []
 
-	#if there's no base fee per gas attribute in the block
-	if 'baseFeePerGas' not in block:
-		print(f'Block {block_num} does not have a base fee per gas (may be before EIP-1559).')
+	for tx in block['transactions']:
+		#obtain its priority fee (pfee)
+		pfee = 0
 		
-		# we just need to compare the gasPrice of the transactions
-		for tx in block['transactions']:
-			if 'gasPrice' in tx:
-				priority_fees.append(tx['gasPrice'])
-			else:
-				print('transaction does not have a gasPrice')
-
-	else:
-		for tx in block['transactions']:
-			#obtain its priority fee (pfee)
-			pfee = 0
+		#if it has a maxPriorityFeePerGas field, it means it's a type 2 transaction 
+		if 'maxPriorityFeePerGas' in tx:
+			mPFPG = tx['maxPriorityFeePerGas']
+			mFPG = tx['maxFeePerGas']
+			pfee = min(mPFPG, mFPG) 
 			
-			#if it has a maxPriorityFeePerGas field, it means it's a type 2 transaction 
-			if 'maxPriorityFeePerGas' in tx:
-				mPFPG = tx['maxPriorityFeePerGas']
-				mFPG = tx['maxFeePerGas']
-				bFPG = block.baseFeePerGas
-				pfee = min(mPFPG, mFPG - bFPG) 
-			#if it doesn't have a maxPriorityFeePerGas field, it's a type 0 transaction
-			else:
-				gP = tx['gasPrice']
-				bFPG = block.baseFeePerGas
-				pfee = gP - bFPG
+		#if it doesn't have a maxPriorityFeePerGas field, it's a type 0 transaction
+		else:
+			gP = tx['gasPrice']
+			pfee = gP
 	  	
-			priority_fees.append(pfee)
+		priority_fees.append(pfee)
 	
 	# if for all transactions, their priority fee is higher than or equal to the next one
 	# then block is ordered
