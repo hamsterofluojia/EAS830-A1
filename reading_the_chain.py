@@ -59,7 +59,7 @@ def is_ordered_block(w3, block_num):
 	# TODO YOUR CODE HERE
 	
 	# if it is an empty block or block with just 1 transaction, ordered is True
-	if !block or !block.transactions or block.transactions.length == 1:
+	if block.transactions.length == 0 or block.transactions.length == 1:
 		ordered = True
 	
 	# store the priority fees of all transactions in order with a list
