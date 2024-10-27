@@ -49,7 +49,7 @@ def get_ape_info(apeID):
 				eyes = attribute.get("value")
 				break
 
-	except Excrption as e:
+	except Exception as e:
 		print(f"Error retrieving Ape ID {apeID}: {e}")
 		return data
 
