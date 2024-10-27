@@ -5,7 +5,7 @@ import requests
 import json
 import time
 
-print(web3.__version__)
+print(Web3.__version__)
 
 bayc_address = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
 contract_address = Web3.toChecksumAddress(bayc_address)
