@@ -60,7 +60,7 @@ def is_ordered_block(w3, block_num):
 	# TODO YOUR CODE HERE
 	
 	# store the priority fees of all transactions in order with a list
-	priorty_fees = []
+	priority_fees = []
 
 	for tx in block['transactions']:
 		#obtain its priority fee (pfee)
