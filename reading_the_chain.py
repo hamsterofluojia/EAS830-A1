@@ -67,14 +67,14 @@ def is_ordered_block(w3, block_num):
 		print(f'Block {block_num} does not have a base fee per gas (may be before EIP-1559).')
 		
 		# we just need to compare the gasPrice of the transactions
-		for tx in block.transactions:
+		for tx in block['transactions']:
 			if 'gasPrice' in tx:
 				priority_fees.append(tx['gasPrice'])
 			else:
 				print('transaction does not have a gasPrice')
 
 	else:
-		for tx in block.transactions:
+		for tx in block['transactions']:
 			#obtain its priority fee (pfee)
 			pfee = 0
 			
