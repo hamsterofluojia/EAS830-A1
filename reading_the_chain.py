@@ -54,6 +54,7 @@ def is_ordered_block(w3, block_num):
 	Conveniently, most type 2 transactions set the gasPrice field to be min( tx.maxPriorityFeePerGas + block.baseFeePerGas, tx.maxFeePerGas )
 	"""
 	block = w3.eth.get_block(block_num, full_transactions=True)
+	
 	ordered = False
 
 	# TODO YOUR CODE HERE
@@ -64,9 +65,13 @@ def is_ordered_block(w3, block_num):
 	#if there's no base fee per gas attribute in the block
 	if 'baseFeePerGas' not in block:
 		print(f'Block {block_num} does not have a base fee per gas (may be before EIP-1559).')
+		
 		# we just need to compare the gasPrice of the transactions
 		for tx in block.transactions:
-			priority_fees.append(tx['gasPrice'])
+			if 'gasPrice' in tx:
+				priority_fees.append(tx['gasPrice'])
+			else:
+				print('transaction does not have a gasPrice')
 
 	else:
 		for tx in block.transactions:
