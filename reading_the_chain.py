@@ -57,11 +57,6 @@ def is_ordered_block(w3, block_num):
 	ordered = False
 
 	# TODO YOUR CODE HERE
-
-	# if it is an empty block or block with just 1 transaction, ordered is True
-	if len(block['transactions'] == 0 || len(block['transactions']) == 1:
-		ordered = True
- 
 	
 	# store the priority fees of all transactions in order with a list
 	priorty_fees = []
@@ -69,7 +64,6 @@ def is_ordered_block(w3, block_num):
 	for tx in block.transactions:
 		#obtain its priority fee (pfee)
 		pfee = 0
-
 		#if it has a maxPriorityFeePerGas field, it means it's a type 2 transaction 
 		if 'maxPriorityFeePerGas' in tx:
 			pfee = min(tx.maxPriorityFeePerGas, tx.maxFeePerGas - block.baseFeePerGas) 
@@ -81,6 +75,10 @@ def is_ordered_block(w3, block_num):
 	# if for all transactions, their priority fee is higher than or equal to the next one
 	# then block is ordered
 	ordered = all(priority_fees[i] >= priority_fees[i + 1] for i in range(len(priority_fees) - 1))
+
+	# if it is an empty block or block with just 1 transaction, ordered is True
+	if len(priority_fees) == 0 || len(priority_fees) == 1:
+		ordered = True
 
 	return ordered
 
