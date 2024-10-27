@@ -65,7 +65,7 @@ def is_ordered_block(w3, block_num):
 		#obtain its priority fee (pfee)
 		pfee = 0
 		#if it has a maxPriorityFeePerGas field, it means it's a type 2 transaction 
-		if 'maxPriorityFeePerGas' in tx:
+		if maxPriorityFeePerGas in tx:
 			pfee = min(tx.maxPriorityFeePerGas, tx.maxFeePerGas - block.baseFeePerGas) 
 		#if it doesn't have a maxPriorityFeePerGas field, it's a type 0 transaction
 		else:
