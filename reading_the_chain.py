@@ -69,12 +69,12 @@ def is_ordered_block(w3, block_num):
 		if 'maxPriorityFeePerGas' in tx:
 			mPFPG = tx['maxPriorityFeePerGas']
 			mFPG = tx['maxFeePerGas']
-			bFPG = block['baseFeePerGas']
+			bFPG = block.baseFeePerGas
 			pfee = min(mPFPG, mFPG - bFPG) 
 		#if it doesn't have a maxPriorityFeePerGas field, it's a type 0 transaction
 		else:
 			gP = tx['gasPrice']
-			bFPG = block['baseFeePerGas']
+			bFPG = block.baseFeePerGas
 			pfee = gP - bFPG
   	
 		priority_fees.append(pfee)
