@@ -39,7 +39,7 @@ def get_ape_info(apeID):
 		#retrieve metadata from IPFS
 		metadata = requests.get(token_uri)
 		#parse
-		metadata_json = metadata_response.json()
+		metadata_json = metadata.json()
 		#extract image uri
 		image_uri = metadata_response.get("image")
 		#extract eyes attribute
@@ -51,7 +51,7 @@ def get_ape_info(apeID):
 
 	except Excrption as e:
 		print(f"Error retrieving Ape ID {apeID}: {e}")
-		return None
+		return data
 
 	assert isinstance(data,dict), f'get_ape_info{apeID} should return a dict' 
 	assert all( [a in data.keys() for a in ['owner','image','eyes']] ), f"return value should include the keys 'owner','image' and 'eyes'"
