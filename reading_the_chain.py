@@ -62,20 +62,28 @@ def is_ordered_block(w3, block_num):
 	# store the priority fees of all transactions in order with a list
 	priority_fees = []
 
-	for tx in block['transactions']:
-		#obtain its priority fee (pfee)
-		pfee = 0
-		
-		#if it has a maxPriorityFeePerGas field, it means it's a type 2 transaction 
-		if 'maxPriorityFeePerGas' in tx:
-			mPFPG = tx['maxPriorityFeePerGas']
-			mFPG = tx['maxFeePerGas']
-			pfee = min(mPFPG, mFPG) 
+	#if the baseFeePerGas attribute does not exist, means it's a pre-EIP1559 block
+	if 'baseFeePerGas' not in block:
+		for tx in block['transactions']:
+			priority_fees.append(tx['gasPrice'])
+
+	else:
+		for tx in block['transactions']:
+			#obtain its priority fee (pfee)
+			pfee = 0
 			
-		#if it doesn't have a maxPriorityFeePerGas field, it's a type 0 transaction
-		else:
-			gP = tx['gasPrice']
-			pfee = gP
+			#if it has a maxPriorityFeePerGas field, it means it's a type 2 transaction 
+			if 'maxPriorityFeePerGas' in tx:
+				mPFPG = tx['maxPriorityFeePerGas']
+				mFPG = tx['maxFeePerGas']
+				bFPG = block['baseFeePerGas']
+				pfee = min(mPFPG, mFPG - bFPG) 
+				
+			#if it doesn't have a maxPriorityFeePerGas field, it's a type 0 transaction
+			else:
+				gP = tx['gasPrice']
+				bFPG = block['baseFeePerGas']
+				pfee = gP - bFPG
 	  	
 		priority_fees.append(pfee)
 	
