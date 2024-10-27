@@ -44,8 +44,10 @@ def get_ape_info(apeID):
 		
 		#parse
 		metadata_json = metadata.json()
+		
 		#extract image uri
-		image_uri = metadata_response.get("image")
+		image_uri = metadata.get("image")
+		
 		#extract eyes attribute
 		eyes = None
 		for attribute in metadata_json.get("attributes", []):
