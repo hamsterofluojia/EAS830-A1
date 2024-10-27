@@ -67,14 +67,14 @@ def is_ordered_block(w3, block_num):
 		
 		#if it has a maxPriorityFeePerGas field, it means it's a type 2 transaction 
 		if 'maxPriorityFeePerGas' in tx:
-			mPFPG = w3.fromWei(tx['maxPriorityFeePerGas'], 'gwei')
-			mFPG = w3.fromWei(tx['maxFeePerGas'], 'gwei')
-			bFPG = w3.fromWei(block['baseFeePerGas'], 'gwei')
+			mPFPG = tx['maxPriorityFeePerGas']
+			mFPG = tx['maxFeePerGas']
+			bFPG = block['baseFeePerGas']
 			pfee = min(mPFPG, mFPG - bFPG) 
 		#if it doesn't have a maxPriorityFeePerGas field, it's a type 0 transaction
 		else:
-			gP = w3.fromWei(tx['gasPrice'], 'gwei')
-			bFPG = w3.fromWei(block['baseFeePerGas'], 'gwei')
+			gP = tx['gasPrice']
+			bFPG = block['baseFeePerGas']
 			pfee = gP - bFPG
   	
 		priority_fees.append(pfee)
