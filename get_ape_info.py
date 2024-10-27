@@ -34,10 +34,14 @@ def get_ape_info(apeID):
 	try:
 		#get owner
 		data['owner'] = bayc_contract.functions.ownerOf(apeID).call()
+		
 		#get tokenURI
 		token_uri = bayc_contract.functions.tokenURI(apeID).call()
+		token_uri = token_uri.replace('ipfs://', 'https://ipfs.io/ipfs/')
+		
 		#retrieve metadata from IPFS
 		metadata = requests.get(token_uri)
+		
 		#parse
 		metadata_json = metadata.json()
 		#extract image uri
