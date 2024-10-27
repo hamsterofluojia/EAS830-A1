@@ -37,7 +37,9 @@ def get_ape_info(apeID):
 		
 		#get tokenURI
 		token_uri = bayc_contract.functions.tokenURI(apeID).call()
+		print(f"Token URI for Ape ID {apeID}: {token_uri}")
 		token_uri = token_uri.replace('ipfs://', 'https://ipfs.io/ipfs/')
+		print(f"Updated Token URI for Ape ID {apeID}: {token_uri}")
 		
 		#retrieve metadata from IPFS
 		metadata = requests.get(token_uri)
