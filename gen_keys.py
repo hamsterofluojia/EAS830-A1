@@ -18,17 +18,32 @@ def get_keys(challenge,keyId = 0, filename = "eth_mnemonic.txt"):
     msg = eth_account.messages.encode_defunct(challenge)
 
 	#YOUR CODE HERE
+    # Load existing private keys from the file, if any
+    mnemonics = []
+    if os.path.exists(filename):
+        with open(filename, "r") as f:
+            mnemonics = [line.strip() for line in f if line.strip()]
 
-    # Generate private key using w3.eth.account.create()
-    account = w3.eth.account.create()
-    eth_address = account.address  # Eth account
-    private_key = account.private_key
+    # Generate and save a new private key if needed for the specified keyId
+    if keyId >= len(mnemonics):
+        new_account = w3.eth.account.create()  # Generate a new account
+        private_key_hex = new_account.privateKey.hex()  # Get the private key in hex format
+        mnemonics.append(new_private_key)
+        
+        # Write all private keys to the file
+        with open(filename, "w") as f:
+            f.write("\n".join(mnemonics))
+        
+        # Use the new account for signing
+        eth_addr = new_account.address
+    else:
+        # If using an existing key, retrieve it and create the account
+        private_key_hex = mnemonics[keyId]
+        existing_account = w3.eth.account.from_key(private_key_hex)  # Create the account from the stored private key
+        eth_addr = existing_account.address
 
-    #write the private keys (or mnemonics) for the account generated
-    
-
-    # Sign message
-    signed_message = w3.eth.account.sign_message(msg, private_key=private_key)
+    # Sign the challenge message
+    sig = w3.eth.account.sign_message(msg, private_key=private_key_hex)
 
     assert eth_account.Account.recover_message(msg,signature=sig.signature.hex()) == eth_addr, f"Failed to sign message properly"
 
