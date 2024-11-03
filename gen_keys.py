@@ -28,7 +28,7 @@ def get_keys(challenge,keyId = 0, filename = "eth_mnemonic.txt"):
     if keyId >= len(mnemonics):
         new_account = w3.eth.account.create()  # Generate a new account
         private_key_hex = new_account.key.hex() # Get the private key in hex format
-        mnemonics.append(new_private_key)
+        mnemonics.append(private_key_hex)
         
         # Write all private keys to the file
         with open(filename, "w") as f:
