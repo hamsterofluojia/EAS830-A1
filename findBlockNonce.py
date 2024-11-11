@@ -21,7 +21,6 @@ def mine_block(k, prev_hash, rand_lines):
     # TODO your code to find a nonce here
     nonce = 0
 
-    rand_lines_bytes = ''.join(rand_lines).encode()
     rand_lines_str = ''.join(rand_lines)
 
     prev_hash_hex = prev_hash.hex()
