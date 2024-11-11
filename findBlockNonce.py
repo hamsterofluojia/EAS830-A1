@@ -38,8 +38,8 @@ def mine_block(k, prev_hash, rand_lines):
             assert isinstance(nonce, bytes), 'nonce should be of type bytes'
             return nonce  # Return the nonce as bytes if the condition is satisfied
 
-    #increment nonce
-    nonce += 1
+        #increment nonce
+        nonce += 1
 
     assert isinstance(nonce, bytes), 'nonce should be of type bytes'
     return nonce
