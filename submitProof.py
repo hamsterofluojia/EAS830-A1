@@ -75,7 +75,7 @@ def convert_leaves(primes_list):
 
     # TODO YOUR CODE HERE
     bytes32_primes = []
-    for prime in prime_list:
+    for prime in primes_list:
         bytes32_primes.append(prime.to_bytes(32, byteorder='big'))
 
     return bytes32_primes
