@@ -54,8 +54,6 @@ def generate_primes(num_primes):
         #check if number is prime
         is_prime = True
         for prime in primes_list:
-            if prime > math.sqrt(candidate):
-                break
             if candidate % prime == 0:
                 is_prime = False
                 break
