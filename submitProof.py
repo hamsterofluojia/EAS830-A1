@@ -1,4 +1,5 @@
 import eth_account
+from eth_account import Account
 import random
 import string
 import json
@@ -7,6 +8,7 @@ from web3 import Web3
 from web3.middleware import geth_poa_middleware  # Necessary for POA chains
 from eth_account.messages import encode_defunct
 
+w3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/23a76e550dbb464886b7b4d8b18816e4'))
 
 def merkle_assignment():
     """
