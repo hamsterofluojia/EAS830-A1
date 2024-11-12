@@ -154,7 +154,9 @@ def sign_challenge(challenge):
 
     # TODO YOUR CODE HERE
     message = encode_defunct(text=challenge)
-    eth_sig_obj = Account.sign_message(message, private_key=eth_sk)
+    eth_sig_obj = w3.eth.account.sign_message(message,private_key=eth_sk)
+    
+    assert isinstance(eth_sig_obj, eth_account.datastructures.SignedMessage)
 
     return addr, eth_sig_obj.signature.hex()
 
