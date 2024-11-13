@@ -19,30 +19,31 @@ def mine_block(k, prev_hash, rand_lines):
         return b'\x00'
 
     # TODO your code to find a nonce here
+    #combine previous hash and transaction into one byte string
+    combined_data = prev_hash + ''.join(rand_lines).encode('utf-8')
+    
     nonce = 0
 
-    rand_lines_str = ''.join(rand_lines)
-
-    prev_hash_hex = prev_hash.hex()
-
-    target = (1 << k) - 1
-
-    #keep trying until the condition is satisfied
     while True:
-        data = prev_hash_hex + rand_lines_str + str(nonce)
-        hash_hex = hashlib.sha256(data.encode('utf-8')).hexdigest()
-        hash_int = int(hash_hex, 16)
-        if hash_int & target == 0:
-            nonce = nonce.to_bytes((nonce.bit_length() + 7) // 8, byteorder='big')
-            assert isinstance(nonce, bytes), 'nonce should be of type bytes'
-            return nonce  # Return the nonce as bytes if the condition is satisfied
+        #create full data by appending the current nonce in bytes
+        nonce_byte = nonce.to_bytes((nonce.bit_length() + 7) // 8, 'big')
+        full_data = combined_data + nonce_byte
 
-        #increment nonce
+        #calculate SHA-256 hash
+        hash_result - hashlib.sha256(full_data).digest()
+
+        #convert hash to binary and check last k bits
+        binary_hash = bin(int.from_bytes(hash_result, 'big'))
+
+        #check if hash ends with k zeros
+        if binary_hash[-k:] == '0' * k:
+            return nonce_byte
+
+        #increment
         nonce += 1
 
     assert isinstance(nonce, bytes), 'nonce should be of type bytes'
     return nonce
-
 
 def get_random_lines(filename, quantity):
     """
