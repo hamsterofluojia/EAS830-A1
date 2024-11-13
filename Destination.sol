@@ -47,10 +47,11 @@ contract Destination is AccessControl {
     require(BridgeToken(_wrapped_token).balanceOf(msg.sender) >= _amount, "Insufficient balance");
 
     // Burn the wrapped tokens from balance
-    BridgeToken(_wrapped_token).burn(msg.sender, _amount);
+    BridgeToken(_wrapped_token).burnFrom(msg.sender, _amount);
 
     // Emit the Unwrap event 
     emit Unwrap(underlyingToken, _wrapped_token, msg.sender, _recipient, _amount);
+
 	}
 
 	function createToken(address _underlying_token, string memory name, string memory symbol ) public onlyRole(CREATOR_ROLE) returns(address) {
@@ -59,7 +60,7 @@ contract Destination is AccessControl {
     require(wrapped_tokens[_underlying_token] == address(0), "Token already created");
 
     // Deploy new BridgeToken contract 
-    BridgeToken newToken = new BridgeToken(name, symbol);
+    BridgeToken newToken = new BridgeToken(_underlying_token, name, symbol, msg.sender);
     address newTokenAddress = address(newToken);
 
     // Register the new BridgeToken 
@@ -72,7 +73,7 @@ contract Destination is AccessControl {
 
     // Return the address of the newly created BridgeToken
     return newTokenAddress;
-	}
+}
 
 }
 
