@@ -30,7 +30,7 @@ def mine_block(k, prev_hash, rand_lines):
         full_data = combined_data + nonce_byte
 
         #calculate SHA-256 hash
-        hash_result - hashlib.sha256(full_data).digest()
+        hash_result = hashlib.sha256(full_data).digest()
 
         #convert hash to binary and check last k bits
         binary_hash = bin(int.from_bytes(hash_result, 'big'))
