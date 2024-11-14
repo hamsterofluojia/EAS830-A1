@@ -16,10 +16,10 @@ def load_contract_info(filepath):
     abi = data["bsc"]["abi"]
     return address, abi
 
-w3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/23a76e550dbb464886b7b4d8b18816e4'))
+web3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/23a76e550dbb464886b7b4d8b18816e4'))
 
 # Ensure connection
-if not web3.isConnected():
+if not web3.is_connected():
     raise ConnectionError("Failed to connect to Binance Smart Chain node")
 
 # Load the contract address and ABI from the JSON file
