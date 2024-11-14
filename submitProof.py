@@ -8,7 +8,25 @@ from web3 import Web3
 from web3.middleware import geth_poa_middleware  # Necessary for POA chains
 from eth_account.messages import encode_defunct
 
+# Load contract information from JSON
+def load_contract_info(filepath):
+    with open(filepath, 'r') as file:
+        data = json.load(file)
+    address = Web3.toChecksumAddress(data["bsc"]["address"])
+    abi = data["bsc"]["abi"]
+    return address, abi
+
 w3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/23a76e550dbb464886b7b4d8b18816e4'))
+
+# Ensure connection
+if not web3.isConnected():
+    raise ConnectionError("Failed to connect to Binance Smart Chain node")
+
+# Load the contract address and ABI from the JSON file
+contract_address, contract_abi = load_contract_info('contract_info.json')
+
+# Create contract instance
+contract = web3.eth.contract(address=contract_address, abi=contract_abi)
 
 def merkle_assignment():
     """
@@ -28,7 +46,13 @@ def merkle_assignment():
     tree = build_merkle(leaves)
 
     # Select a random leaf and create a proof for that leaf
-    random_leaf_index = random.randint(0, num_of_primes - 1) #TODO generate a random index from primes to claim (0 is already claimed)
+    # Select an unclaimed random leaf and create a proof for that leaf
+    while True:
+        random_leaf_index = random.randint(0, num_of_primes - 1)
+        random_leaf = primes[random_leaf_index]
+        if not is_leaf_claimed(random_leaf):  # Check if leaf is unclaimed
+            break
+
     proof = prove_merkle(tree, random_leaf_index)
 
     # This is the same way the grader generates a challenge for sign_challenge()
@@ -42,6 +66,13 @@ def merkle_assignment():
         # complete this method and run your code with the following line un-commented
         tx_hash = send_signed_msg(proof, leaves[random_leaf_index])
 
+def is_leaf_claimed(leaf):
+    """
+    Checks if a specific prime (leaf) has already been claimed.
+    Returns True if claimed, False otherwise.
+    """
+    owner = contract.functions.getOwnerByPrime(leaf).call()
+    return owner != "0x0000000000000000000000000000000000000000"
 
 def generate_primes(num_primes):
     """
