@@ -8,25 +8,11 @@ from web3 import Web3
 from web3.middleware import geth_poa_middleware  # Necessary for POA chains
 from eth_account.messages import encode_defunct
 
-# Load contract information from JSON
-def load_contract_info(filepath):
-    with open(filepath, 'r') as file:
-        data = json.load(file)
-    address = Web3.to_check_sum_address(data["bsc"]["address"])
-    abi = data["bsc"]["abi"]
-    return address, abi
-
 web3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/23a76e550dbb464886b7b4d8b18816e4'))
 
 # Ensure connection
 if not web3.is_connected():
     raise ConnectionError("Failed to connect to Binance Smart Chain node")
-
-# Load the contract address and ABI from the JSON file
-contract_address, contract_abi = load_contract_info('contract_info.json')
-
-# Create contract instance
-contract = web3.eth.contract(address=contract_address, abi=contract_abi)
 
 def merkle_assignment():
     """
@@ -47,11 +33,7 @@ def merkle_assignment():
 
     # Select a random leaf and create a proof for that leaf
     # Select an unclaimed random leaf and create a proof for that leaf
-    while True:
-        random_leaf_index = random.randint(0, num_of_primes - 1)
-        random_leaf = primes[random_leaf_index]
-        if not is_leaf_claimed(random_leaf):  # Check if leaf is unclaimed
-            break
+    random_leaf_index = random.randint(0, num_of_primes - 1)
 
     proof = prove_merkle(tree, random_leaf_index)
 
