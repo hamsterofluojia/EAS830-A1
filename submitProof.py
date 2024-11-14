@@ -8,11 +8,7 @@ from web3 import Web3
 from web3.middleware import geth_poa_middleware  # Necessary for POA chains
 from eth_account.messages import encode_defunct
 
-web3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/23a76e550dbb464886b7b4d8b18816e4'))
-
-# Ensure connection
-if not web3.is_connected():
-    raise ConnectionError("Failed to connect to Binance Smart Chain node")
+w3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/23a76e550dbb464886b7b4d8b18816e4'))
 
 def merkle_assignment():
     """
