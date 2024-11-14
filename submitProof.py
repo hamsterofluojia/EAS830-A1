@@ -12,7 +12,7 @@ from eth_account.messages import encode_defunct
 def load_contract_info(filepath):
     with open(filepath, 'r') as file:
         data = json.load(file)
-    address = Web3.toChecksumAddress(data["bsc"]["address"])
+    address = Web3.to_check_sum_address(data["bsc"]["address"])
     abi = data["bsc"]["abi"]
     return address, abi
 
