@@ -60,7 +60,7 @@ contract Destination is AccessControl {
     require(wrapped_tokens[_underlying_token] == address(0), "Token already created");
 
     // Deploy new BridgeToken contract 
-    BridgeToken newToken = new BridgeToken(_underlying_token, name, symbol, msg.sender);
+    BridgeToken newToken = new BridgeToken(_underlying_token, name, symbol, address(this));
     address newTokenAddress = address(newToken);
 
     // Register the new BridgeToken 
