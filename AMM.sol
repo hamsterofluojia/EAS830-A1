@@ -66,16 +66,16 @@ contract AMM is AccessControl{
  
 		//if user sells tokenA and buys tokenB
 		if (sellToken == tokenA) {
-			buyToken = tokenB
+			buyToken = tokenB;
 			//calculate buy amount for B
-			swapAmt = qtyB - (invariant/(qtyA + postFeeSellAmt))
+			swapAmt = qtyB - (invariant/(qtyA + postFeeSellAmt));
 		}
 
 		//if user sells tokenB and buys tokenA
 		else {
-			buyToken = tokenA
+			buyToken = tokenA;
 			//calculate buy amount for A
-			swapAmt = qtyA - (invariant/(qtyB + postFeeSellAmt))
+			swapAmt = qtyA - (invariant/(qtyB + postFeeSellAmt));
 		}
 		
 		require(swapAmt > 0, "Invalid swap amount");
@@ -128,4 +128,3 @@ contract AMM is AccessControl{
 
 
 }
-
