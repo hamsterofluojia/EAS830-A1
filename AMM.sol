@@ -64,8 +64,8 @@ contract AMM is AccessControl{
 		qtyB = ERC20(tokenB).balanceOf(address(this));
 
 		//calculate true selling amount
-    uint256 fee = (sellAmount * feebps) / 10000;
-    uint256 postFeeSellAmt = sellAmount - fee;
+    		uint256 fee = (sellAmount * feebps) / 10000;
+    		uint256 postFeeSellAmt = sellAmount - fee;
  
 		//if user sells tokenA and buys tokenB
 		if (sellToken == tokenA) {
@@ -84,10 +84,10 @@ contract AMM is AccessControl{
 		require(swapAmt > 0, "Invalid swap amount");
 
 		// Transfer sellToken from trader to the contract
-    ERC20(sellToken).transferFrom(msg.sender, address(this), sellAmount);
+    		ERC20(sellToken).transferFrom(msg.sender, address(this), sellAmount);
 
-    // Transfer buyToken from the contract to the trader
-    ERC20(buyToken).transfer(msg.sender, swapAmt);
+   		// Transfer buyToken from the contract to the trader
+    		ERC20(buyToken).transfer(msg.sender, swapAmt);
 
 		uint256 new_invariant = ERC20(tokenA).balanceOf(address(this))*ERC20(tokenB).balanceOf(address(this));
 		require( new_invariant >= invariant, 'Bad trade' );
