@@ -64,7 +64,8 @@ contract AMM is AccessControl{
 		qtyB = ERC20(tokenB).balanceOf(address(this));
 
 		//calculate true selling amount
-		postFeeSellAmt = sellAmount*(1 - feebps/10000);
+    uint256 fee = (sellAmount * feebps) / 10000;
+    uint256 postFeeSellAmt = sellAmount - fee;
  
 		//if user sells tokenA and buys tokenB
 		if (sellToken == tokenA) {
