@@ -57,8 +57,8 @@ contract AMM is AccessControl{
 		uint256 swapAmt;
 
 		//YOUR CODE HERE
-		uint256 postFeeSellAmt;
 		address buyToken;
+
 		//calculate current token A/B balance pre-trade
 		qtyA = ERC20(tokenA).balanceOf(address(this));
 		qtyB = ERC20(tokenB).balanceOf(address(this));
