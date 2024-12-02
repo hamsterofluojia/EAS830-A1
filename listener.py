@@ -64,7 +64,7 @@ def scanBlocks(chain,start_block,end_block,contract_address):
                 'token': event.args['token'],
                 'recipient': event.args['recipient'],
                 'amount': event.args['amount'],
-                'transaction_hash': event.transactionHash.hex(),
+                'transactionHash': event.transactionHash.hex(),
                 'address': contract_address
             }
             deposit_events.append(data)
@@ -81,7 +81,7 @@ def scanBlocks(chain,start_block,end_block,contract_address):
                     'token': event.args['token'],
                     'recipient': event.args['recipient'],
                     'amount': event.args['amount'],
-                    'transaction_hash': event.transactionHash.hex(),
+                    'transactionHash': event.transactionHash.hex(),
                     'address': contract_address
                 }
                 deposit_events.append(data)
