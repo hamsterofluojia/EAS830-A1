@@ -53,11 +53,10 @@ def scanBlocks(chain):
         print( f"Invalid chain: {chain}" )
         return
 
-	#YOUR CODE HERE 
+	#YOUR CODE HERE
 	if chain == 'source':
-	chain_name = source_chain
-
-	elif chain == 'destination'
+		chain_name = source_chain
+	elif chain == 'destination':
 		chain_name = destination_chain
 
     # Load the contract info for both source and destination chains
