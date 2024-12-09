@@ -6,3 +6,20 @@ Transaction hash: 0xb9b3c82b8dec87a7f4b7a754beca827aad9fee472d3fe6224c925ce8273a
 
 contract deployed to BNB Testnet:
 
+Deployer: 0xb4e1F79c69c25Ef0D350Adf478460Cd3969bbbC3
+Deployed to: 0xBA2909dC5C03342185bE6110dDDeABAdbFBa7Ca4
+Transaction hash: 0x9fcf17ab4d59b08def0fae0a83803d09e0263dc2955824bb368c35bcd1ce73ef
+
+TokenA:
+Processing token: 0xc677c31AD31F73A5290f5ef067F8CEF8d301e45c (Name: TokenA, Symbol: TKNA)
+Registering token on Source contract: 0xc677c31AD31F73A5290f5ef067F8CEF8d301e45c
+Source registration transaction hash: 0xaf1e7dbe00f3c871b3dd2c142ef97f73bfadf6ebcca584245aa9b94f7520d273
+Creating token on Destination contract: 0xc677c31AD31F73A5290f5ef067F8CEF8d301e45c
+Destination creation transaction hash: 0xa238c7554c89ae9d196d232677403c479a870a2c2448316228616ea66e0e5a3a
+
+TokenB:
+Processing token: 0x0773b81e0524447784CcE1F3808fed6AaA156eC8 (Name: TokenB, Symbol: TKNB)
+Registering token on Source contract: 0x0773b81e0524447784CcE1F3808fed6AaA156eC8
+Source registration transaction hash: 0x0ff20d1e798137cea69b2427d53de431e4eba1257d196e56655f3718bd32ca20
+Creating token on Destination contract: 0x0773b81e0524447784CcE1F3808fed6AaA156eC8
+Destination creation transaction hash: 0x806d094b91bffce16fdc404bd53a547f0633786af239777ee1c7a46e9296309f
