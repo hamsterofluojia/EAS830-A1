@@ -55,9 +55,9 @@ def scanBlocks(chain):
 
     #YOUR CODE HERE
     if chain == 'source':
-	chain_name = source_chain
+        chain_name = source_chain
     elif chain == 'destination':
-	chain_name = destination_chain
+        chain_name = destination_chain
 
     # Load the contract info for both source and destination chains
     contract_info = getContractInfo(chain_name)
