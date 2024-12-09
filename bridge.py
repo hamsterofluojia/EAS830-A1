@@ -55,13 +55,19 @@ def scanBlocks(chain):
 
         #YOUR CODE HERE
 
+		if chain == 'source':
+				chain_name = source_chain
+
+		elif chain == 'destination'
+				chain_name = destination_chain
+
     # Load the contract info for both source and destination chains
-    contract_info = getContractInfo(chain)
+    contract_info = getContractInfo(chain_name)
     w3 = connectTo(chain)
     
     # Get the contract ABI and address from the contract info
     contract_abi = contract_info['abi']
-    contract_address = Web3.toChecksumAddress(contract_info['address'])
+    contract_address = Web3.to_check_sum_address(contract_info['address'])
     
     # Get the contract instance
     contract = w3.eth.contract(address=contract_address, abi=contract_abi)
@@ -153,62 +159,3 @@ def scanBlocks(chain):
                 print(f"Withdraw transaction sent on source chain. Tx Hash: {source_w3.toHex(tx_hash)}")
 
     print(f"Finished scanning the last 5 blocks on the {chain} chain.")
-
-"""
-		elif chain == 'source':
-        chain_name = source_chain
-
-    elif chain == 'destination':
-        chain_name = destination_chain
-  
-		# Connect to the chain
-    w3 = connectTo(chain_name)
-    if not w3.isConnected():
-        print(f"Failed to connect to {chain_name}")
-        return
-
-		# Get contract info
-    contract_data = getContractInfo(chain_name)
-    contract_address = Web3.toChecksumAddress(contract_data["address"])
-    contract_abi = contract_data["abi"]
-
-		# Load the contract and get last block
-    contract = w3.eth.contract(address=contract_address, abi=contract_abi)
-    latest_block = w3.eth.block_number
-
-		arg_filter = {}
-
-		#scan the last 5 blocks of the source chain, look for Deposit events.
-		for block_number in range(latest_block - 4, latest_block + 1):
-    		event_filter = contract.events.Deposit.create_filter(fromBlock=block_num,toBlock=block_num,argument_filters=arg_filter)
-    		events = event_filter.get_all_entries()
-				#when Deposit events are found on the source chain, call the 'wrap' function on the destination chain
-				for event in events:
-						wrap(event.args[token], event.args[recipient], event.args['amount'])
-
-		function wrap(address _underlying_token, address _recipient, uint256 _amount ) public onlyRole(WARDEN_ROLE) {
-		//YOUR CODE HERE
-		// Check if the underlying asset has been registered 
-    address wrappedToken = wrapped_tokens[_underlying_token];
-    require(wrappedToken != address(0), "Token not registered");
-
-    // Mint the wrapped token 
-    BridgeToken(wrappedToken).mint(_recipient, _amount);
-
-    // Emit the Wrap event with details of the transaction
-    emit Wrap(_underlying_token, wrappedToken, _recipient, _amount);
-	}
-
-	            data = {
-                'chain': chain,
-                'token': event.args['token'],
-                'recipient': event.args['recipient'],
-                'amount': event.args['amount'],
-                'transactionHash': event.transactionHash.hex(),
-                'address': contract_address
-            }
-"""
-
-
-				#scan the last 5 blocks of the destination chain, look for Unwrap events.
-				#when Unwrap events are found on the destination chain, call the 'withdraw' function on the source chain
